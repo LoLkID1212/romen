@@ -1,307 +1,180 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Urban Essentials™ | New Drop</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <style>
+<meta charset="UTF-8">
+<title>ROME — Vampire Collection</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&family=IM+Fell+English&display=swap');
+
     * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
     }
 
     body {
-      background: #050505;
-      color: #f5f5f5;
-      display: flex;
-      min-height: 100vh;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
+        background: #000;
+        color: #fff;
+        font-family: "IM Fell English", serif;
+        overflow: hidden;
     }
 
-    .card {
-      background: #111;
-      border-radius: 18px;
-      max-width: 900px;
-      width: 100%;
-      overflow: hidden;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      display: grid;
-      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.4fr);
+    /* Intro Screen */
+    #intro {
+        position: fixed;
+        inset: 0;
+        background: #000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        text-align: center;
+        gap: 20px;
     }
 
-    @media (max-width: 800px) {
-      .card {
-        grid-template-columns: 1fr;
-      }
+    #intro h1 {
+        font-family: "UnifrakturCook", cursive;
+        font-size: 4rem;
+        letter-spacing: 4px;
     }
 
-    .left {
-      position: relative;
-      background: radial-gradient(circle at top, #444 0, #111 45%, #000 100%);
-      padding: 28px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
+    #intro p {
+        font-size: 1.2rem;
+        opacity: 0.8;
     }
 
-    .brand {
-      font-size: 0.9rem;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: #b3b3b3;
+    #enterPrompt {
+        font-size: 1rem;
+        opacity: 0.6;
+        animation: blink 1.2s infinite;
     }
 
-    .logo {
-      font-weight: 700;
-      font-size: 1.1rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
+    @keyframes blink {
+        0% { opacity: 0.2; }
+        50% { opacity: 1; }
+        100% { opacity: 0.2; }
     }
 
-    .pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 6px 12px;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.06);
-      font-size: 0.7rem;
-      text-transform: uppercase;
-      letter-spacing: 0.18em;
-      margin-top: 10px;
-      color: #d6d6d6;
+    /* Main Content */
+    #main {
+        display: none;
+        padding: 40px;
+        text-align: center;
     }
 
-    .pill-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: #4ade80;
-      box-shadow: 0 0 10px #4ade80;
+    .title {
+        font-family: "UnifrakturCook", cursive;
+        font-size: 3.5rem;
+        margin-bottom: 20px;
     }
 
-    .headline {
-      margin-top: 40px;
-      font-size: 2rem;
-      line-height: 1.2;
+    .subtitle {
+        font-size: 1.3rem;
+        margin-bottom: 40px;
+        opacity: 0.8;
     }
 
-    .headline span {
-      color: #f97316;
-    }
-
-    .details {
-      margin-top: 18px;
-      font-size: 0.9rem;
-      color: #c4c4c4;
-      max-width: 260px;
-    }
-
-    .tag-row {
-      margin-top: 24px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
-    .tag {
-      font-size: 0.7rem;
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
-      padding: 5px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      color: #d4d4d4;
-    }
-
-    .price-row {
-      margin-top: 30px;
-      display: flex;
-      align-items: baseline;
-      gap: 10px;
+    .product-card {
+        border: 1px solid #444;
+        padding: 30px;
+        max-width: 600px;
+        margin: 0 auto;
+        background: #0a0a0a;
+        border-radius: 8px;
     }
 
     .price {
-      font-size: 1.4rem;
-      font-weight: 600;
+        margin-top: 20px;
+        font-size: 1.4rem;
     }
 
-    .price-note {
-      font-size: 0.75rem;
-      color: #a3a3a3;
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
+    .old-price {
+        text-decoration: line-through;
+        opacity: 0.5;
+        font-size: 1rem;
     }
 
-    .cta-row {
-      margin-top: 24px;
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
+    .sale {
+        color: #ff0000;
+        font-size: 1.2rem;
+        margin-top: 5px;
     }
 
-    .btn-primary {
-      background: #f97316;
-      color: #050505;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 999px;
-      font-size: 0.85rem;
-      text-transform: uppercase;
-      letter-spacing: 0.18em;
-      cursor: pointer;
-      transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
-      box-shadow: 0 10px 25px rgba(249, 115, 22, 0.45);
+    .btn {
+        margin-top: 30px;
+        padding: 12px 25px;
+        border: 1px solid #fff;
+        background: transparent;
+        color: #fff;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: 0.2s;
+        letter-spacing: 2px;
     }
 
-    .btn-primary:hover {
-      transform: translateY(-1px);
-      background: #fb923c;
-      box-shadow: 0 14px 35px rgba(249, 115, 22, 0.6);
+    .btn:hover {
+        background: #fff;
+        color: #000;
     }
 
-    .btn-ghost {
-      background: transparent;
-      color: #e5e5e5;
-      border-radius: 999px;
-      border: 1px solid rgba(255, 255, 255, 0.18);
-      padding: 10px 18px;
-      font-size: 0.8rem;
-      text-transform: uppercase;
-      letter-spacing: 0.18em;
-      cursor: pointer;
-      transition: background 0.12s ease, color 0.12s ease, border-color 0.12s ease;
+    /* Rickroll Frame */
+    #rickroll {
+        margin-top: 40px;
+        display: none;
     }
 
-    .btn-ghost:hover {
-      background: rgba(255, 255, 255, 0.06);
-      border-color: rgba(255, 255, 255, 0.3);
+    iframe {
+        width: 100%;
+        max-width: 700px;
+        height: 400px;
+        border: none;
     }
+</style>
 
-    .right {
-      background: #000;
-      position: relative;
-      padding: 18px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
+<script>
+    document.addEventListener("keydown", function(e) {
+        if (e.key === "Enter") {
+            document.getElementById("intro").style.display = "none";
+            document.getElementById("main").style.display = "block";
+        }
+    });
 
-    .frame {
-      position: relative;
-      width: 100%;
-      padding-top: 56.25%;
-      border-radius: 18px;
-      overflow: hidden;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      background: #050505;
+    function showVideo() {
+        document.getElementById("rickroll").style.display = "block";
     }
+</script>
 
-    .frame iframe {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      border: none;
-    }
-
-    .frame-overlay {
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      background: radial-gradient(circle at top, rgba(249, 115, 22, 0.18), transparent 55%);
-      mix-blend-mode: screen;
-    }
-
-    .corner-label {
-      position: absolute;
-      top: 16px;
-      right: 16px;
-      font-size: 0.7rem;
-      text-transform: uppercase;
-      letter-spacing: 0.18em;
-      padding: 6px 10px;
-      border-radius: 999px;
-      background: rgba(0, 0, 0, 0.7);
-      border: 1px solid rgba(255, 255, 255, 0.18);
-      color: #e5e5e5;
-    }
-
-    .disclaimer {
-      margin-top: 10px;
-      font-size: 0.7rem;
-      color: #737373;
-    }
-  </style>
 </head>
 <body>
-  <div class="card">
-    <div class="left">
-      <div>
-        <div class="brand">URBAN ESSENTIALS™</div>
-        <div class="logo">UE / STUDIO</div>
-        <div class="pill">
-          <span class="pill-dot"></span>
-          <span>New Drop • Limited Run</span>
+
+<!-- Intro Screen -->
+<div id="intro">
+    <h1>ROME</h1>
+    <p>Gothic Apparel for the Eternal Night</p>
+    <p id="enterPrompt">Press ENTER to enter</p>
+</div>
+
+<!-- Main Content -->
+<div id="main">
+    <div class="title">Vampire Sweaters</div>
+    <div class="subtitle">Limited Midnight Collection</div>
+
+    <div class="product-card">
+        <p class="old-price">Original Price: $150</p>
+        <p class="price">Now: $15</p>
+        <p class="sale">90% OFF — Tonight Only</p>
+
+        <button class="btn" onclick="showVideo()">VIEW LOOKBOOK</button>
+
+        <div id="rickroll">
+            <iframe 
+                src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&controls=0&modestbranding=1&rel=0">
+            </iframe>
         </div>
-
-        <h1 class="headline">
-          FW24 <span>Shadow Layer</span><br />
-          Technical Hoodie Preview
-        </h1>
-
-        <p class="details">
-          Early access preview for friends & family only. Stream the lookbook teaser before it goes public.
-        </p>
-
-        <div class="tag-row">
-          <span class="tag">Heavyweight fleece</span>
-          <span class="tag">Pre-shrunk</span>
-          <span class="tag">Oversized fit</span>
-          <span class="tag">Unreleased</span>
-        </div>
-
-        <div class="price-row">
-          <span class="price">$118</span>
-          <span class="price-note">Preview only · Not yet live</span>
-        </div>
-      </div>
-
-      <div>
-        <div class="cta-row">
-          <button class="btn-primary">
-            View Lookbook Video
-          </button>
-          <button class="btn-ghost">
-            Size guide
-          </button>
-        </div>
-        <p class="disclaimer">
-          For internal preview use only. Do not share outside close friends.
-        </p>
-      </div>
     </div>
+</div>
 
-    <div class="right">
-      <div class="frame">
-        <!-- Rickroll embed -->
-        <iframe
-          src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&controls=0&modestbranding=1&rel=0"
-          title="FW24 Lookbook Preview"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen>
-        </iframe>
-        <div class="frame-overlay"></div>
-        <div class="corner-label">Lookbook · FW24</div>
-      </div>
-    </div>
-  </div>
 </body>
 </html>
